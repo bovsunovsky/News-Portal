@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class HomeController extends AbstractController
 {
-
     private HomePageArticlesProviderInterface $articlesProvider;
 
     public function __construct(HomePageArticlesProviderInterface $articlesProvider)
@@ -22,13 +21,24 @@ final class HomeController extends AbstractController
     /**
      * @Route("/", methods={"GET"}, name="app_home")
      */
-    public function index():Response
+    public function index(): Response
     {
         $articles = $this->articlesProvider->getList();
 
-        return $this->render('home/index.html.twig',[
-            'articles'=>$articles
+        return $this->render('home/index.html.twig', [
+            'articles' => $articles,
         ]);
     }
 
+    /**
+     * @Route ("/article/{id}", methods={"GET"}, name="one_article")
+     */
+    public function oneArticle(int $id): Response
+    {
+        $article = $this->articlesProvider->getOneArticle($id);
+
+        return $this->render('home/one_article.html.twig', [
+            'article' => $article,
+        ]);
+    }
 }

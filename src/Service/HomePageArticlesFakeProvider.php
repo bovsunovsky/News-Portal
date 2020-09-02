@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-
 use App\Collection\HomePageArticles;
 use App\ViewModel\HomePageArticle;
 use Faker\Factory;
@@ -19,7 +18,7 @@ class HomePageArticlesFakeProvider implements HomePageArticlesProviderInterface
         'World',
         'Sport',
         'IT',
-        'Science'
+        'Science',
     ];
 
     public function __construct()
@@ -27,11 +26,11 @@ class HomePageArticlesFakeProvider implements HomePageArticlesProviderInterface
         $this->faker = Factory::create();
     }
 
-    public function getList():HomePageArticles
+    public function getList(): HomePageArticles
     {
         $articles = [];
-        for ($i=0 ; $i< self::ARTICLES_COUNT; $i++){
-            $articles[] = $this->createArticle($i+1);
+        for ($i = 0; $i < self::ARTICLES_COUNT; ++$i) {
+            $articles[] = $this->createArticle($i + 1);
         }
 
         return new HomePageArticles(...$articles);
@@ -40,10 +39,17 @@ class HomePageArticlesFakeProvider implements HomePageArticlesProviderInterface
     private function createArticle(int $id): HomePageArticle
     {
         $title = $this->faker->words(
-            $this->faker->numberBetween(1,4),
+            $this->faker->numberBetween(1, 4),
             true
         );
         $title = \ucfirst($title);
+
+        $body = $this->faker->words(
+            $this->faker->numberBetween(100, 200),
+            true
+        );
+        $body = \ucfirst($body);
+
         return new HomePageArticle(
             $id,
             $this->faker->randomElement(self::CATEGORIES),
@@ -51,9 +57,15 @@ class HomePageArticlesFakeProvider implements HomePageArticlesProviderInterface
             \DateTimeImmutable::createFromMutable($this->faker->dateTimeThisYear),
             $this->faker->imageUrl(),
             $this->faker->words(
-                $this->faker->numberBetween(3,7),
+                $this->faker->numberBetween(3, 7),
                 true
-            )
+            ),
+            $body,
         );
+    }
+
+    public function getOneArticle(int $id): HomePageArticle
+    {
+        return $this->createArticle($id);
     }
 }

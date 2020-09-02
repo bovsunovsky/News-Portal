@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section class="top-posts">
+        {% if article is not null %}
+        <article class="main-post top-post">
+            <a href="#" class="category-link">{{ article.categoryTitle }}</a>
+            <a href="#">
+                <img src="{{ asset(article.image)}}" alt="" class="img-fluid">
+            </a>
+            <a href="#" class="post-link">
+                <h1>{{ article.title }}</h1>
+            </a>
+            <time>{{ article.publicationDate | date('d-m-Y') }}</time>
+            <p>{{ article.shortDescription }}</p>
+            <div class="clearfix"></div>
+            <div>{{ article.body }}</div>
+            <div class="clearfix"></div>
+            <a class="btn btn-success" href="{{ path("app_home") }}">Homepage</a>
+        </article>
+        {% endif %}
+    </section>
+
+{% endblock %}
