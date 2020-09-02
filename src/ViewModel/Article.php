@@ -10,8 +10,6 @@ final class Article
     private string $categoryTitle;
     private string $title;
     private \DateTimeImmutable $publicationDate;
-    private ?string $image;
-    private ?string $shortDescription;
     private string $body;
 
     public function __construct(
@@ -19,16 +17,12 @@ final class Article
         string $categoryTitle,
         string $title,
         \DateTimeImmutable $publicationDate,
-        ?string $image,
-        ?string $shortDescription,
         string $body)
     {
         $this->id = $id;
         $this->categoryTitle = $categoryTitle;
         $this->title = $title;
         $this->publicationDate = $publicationDate;
-        $this->image = $image;
-        $this->shortDescription = $shortDescription;
         $this->body = $body;
     }
 
@@ -50,16 +44,6 @@ final class Article
     public function getPublicationDate(): \DateTimeImmutable
     {
         return $this->publicationDate;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function getShortDescription(): ?string
-    {
-        return $this->shortDescription;
     }
 
     public function getBody(): string

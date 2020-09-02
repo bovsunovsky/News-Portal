@@ -8,5 +8,5 @@ use App\ViewModel\Article;
 
 interface ArticleProviderInterface
 {
-    public function getArticle(int $id):Article;
+    public function getById(int $id): Article;
 }

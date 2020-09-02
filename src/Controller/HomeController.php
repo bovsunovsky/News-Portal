@@ -29,16 +29,4 @@ final class HomeController extends AbstractController
             'articles' => $articles,
         ]);
     }
-
-    /**
-     * @Route ("/article/{id}", methods={"GET"}, name="one_article")
-     */
-    public function oneArticle(int $id): Response
-    {
-        $article = $this->articlesProvider->getOneArticle($id);
-
-        return $this->render('home/article.html.twig', [
-            'article' => $article,
-        ]);
-    }
 }

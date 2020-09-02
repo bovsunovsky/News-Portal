@@ -24,8 +24,7 @@ class ArticleFakeProvider implements ArticleProviderInterface
         $this->faker = Factory::create();
     }
 
-
-    private function createArticle(int $id): Article
+    private function create(int $id): Article
     {
         $title = $this->faker->words(
             $this->faker->numberBetween(1, 4),
@@ -44,17 +43,12 @@ class ArticleFakeProvider implements ArticleProviderInterface
             $this->faker->randomElement(self::CATEGORIES),
             $title,
             \DateTimeImmutable::createFromMutable($this->faker->dateTimeThisYear),
-            $this->faker->imageUrl(),
-            $this->faker->words(
-                $this->faker->numberBetween(3, 7),
-                true
-            ),
             $body,
         );
     }
 
-    public function getArticle(int $id): Article
+    public function getById(int $id): Article
     {
-        return $this->createArticle($id);
+        return $this->create($id);
     }
 }

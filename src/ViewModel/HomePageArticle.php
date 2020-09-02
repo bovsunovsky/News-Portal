@@ -58,5 +58,4 @@ final class HomePageArticle
     {
         return $this->shortDescription;
     }
-
 }
