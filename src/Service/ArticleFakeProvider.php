@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Collection\HomePageArticles;
-use App\ViewModel\HomePageArticle;
+use App\ViewModel\Article;
 use Faker\Factory;
 use Faker\Generator;
 
-class HomePageArticlesFakeProvider implements HomePageArticlesProviderInterface
+class ArticleFakeProvider implements ArticleProviderInterface
 {
     private Generator $faker;
 
-    private const ARTICLES_COUNT = 10;
     private const CATEGORIES = [
         'World',
         'Sport',
@@ -26,17 +24,8 @@ class HomePageArticlesFakeProvider implements HomePageArticlesProviderInterface
         $this->faker = Factory::create();
     }
 
-    public function getList(): HomePageArticles
-    {
-        $articles = [];
-        for ($i = 0; $i < self::ARTICLES_COUNT; ++$i) {
-            $articles[] = $this->createArticle($i + 1);
-        }
 
-        return new HomePageArticles(...$articles);
-    }
-
-    private function createArticle(int $id): HomePageArticle
+    private function createArticle(int $id): Article
     {
         $title = $this->faker->words(
             $this->faker->numberBetween(1, 4),
@@ -44,7 +33,13 @@ class HomePageArticlesFakeProvider implements HomePageArticlesProviderInterface
         );
         $title = \ucfirst($title);
 
-        return new HomePageArticle(
+        $body = $this->faker->words(
+            $this->faker->numberBetween(100, 200),
+            true
+        );
+        $body = \ucfirst($body);
+
+        return new Article(
             $id,
             $this->faker->randomElement(self::CATEGORIES),
             $title,
@@ -54,10 +49,11 @@ class HomePageArticlesFakeProvider implements HomePageArticlesProviderInterface
                 $this->faker->numberBetween(3, 7),
                 true
             ),
+            $body,
         );
     }
 
-    public function getOneArticle(int $id): HomePageArticle
+    public function getArticle(int $id): Article
     {
         return $this->createArticle($id);
     }

@@ -37,7 +37,7 @@ final class HomeController extends AbstractController
     {
         $article = $this->articlesProvider->getOneArticle($id);
 
-        return $this->render('home/one_article.html.twig', [
+        return $this->render('home/article.html.twig', [
             'article' => $article,
         ]);
     }
