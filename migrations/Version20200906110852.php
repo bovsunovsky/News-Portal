@@ -7,15 +7,14 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-
 final class Version20200906110852 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         $this->addSql(<<<SQL
             CREATE TABLE article (
@@ -32,7 +31,7 @@ final class Version20200906110852 extends AbstractMigration
         SQL);
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         $this->addSql('DROP TABLE article');
     }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\ViewModel;
 
-final class Article
+final class FullArticle
 {
     private int $id;
     private string $categoryTitle;

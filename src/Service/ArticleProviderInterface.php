@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\ViewModel\Article;
+use App\ViewModel\FullArticle;
 
 interface ArticleProviderInterface
 {
-    public function getById(int $id): Article;
+    public function getById(int $id): FullArticle;
 }

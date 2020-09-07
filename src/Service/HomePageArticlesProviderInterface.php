@@ -9,6 +9,4 @@ use App\Collection\HomePageArticles;
 interface HomePageArticlesProviderInterface
 {
     public function getList(): HomePageArticles;
-
-    public function getOneArticle(int $id);
 }

@@ -1,9 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Exception\ArticleBodyCannotBeEmptyException;
 use App\Repository\ArticleRepository;
+use App\ViewModel\FullArticle;
+use App\ViewModel\HomePageArticle;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -53,7 +57,7 @@ class Article
      */
     private \DateTimeImmutable $updatedAt;
 
-    public function __construct(stirng $title)
+    public function __construct(string $title)
     {
         $this->title = $title;
         $this->createdAt = new \DateTimeImmutable();
@@ -64,6 +68,7 @@ class Article
     {
         $this->image = $image;
         $this->updatedAt = new \DateTimeImmutable();
+
         return $this;
     }
 
@@ -71,6 +76,7 @@ class Article
     {
         $this->shortDescription = $shortDescription;
         $this->updatedAt = new \DateTimeImmutable();
+
         return $this;
     }
 
@@ -78,6 +84,7 @@ class Article
     {
         $this->body = $body;
         $this->updatedAt = new \DateTimeImmutable();
+
         return $this;
     }
 
@@ -86,11 +93,33 @@ class Article
      */
     public function publish(): void
     {
-        if(null === $this->body){
+        if (null === $this->body) {
             throw new ArticleBodyCannotBeEmptyException();
-
         }
         $this->publicationDate = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function getHomePageArticle(): HomePageArticle
+    {
+        return new HomePageArticle(
+            $this->id,
+            'Set categoryTitle here', //TODO: set category title
+            $this->title,
+            $this->publicationDate,
+            $this->image,
+            $this->shortDescription
+        );
+    }
+
+    public function getArticle(): FullArticle
+    {
+        return new FullArticle(
+            $this->id,
+            'Set categoryTitle here', //TODO: set category title,
+            $this->title,
+            $this->publicationDate,
+            $this->body
+        );
     }
 }
