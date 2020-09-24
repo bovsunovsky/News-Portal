@@ -25,7 +25,7 @@ final class ArticleController extends AbstractController
     public function index(int $id): Response
     {
         try {
-        $article = $this->articleProvider->getById($id);
+            $article = $this->articleProvider->getById($id);
         } catch (EntityNotFoundException $e) {
             throw $this->createNotFoundException($e->getMessage(), $e);
         }
