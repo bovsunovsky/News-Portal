@@ -22,8 +22,7 @@ $ git clone https://github.com/bovsunovsky/News-Portal.git
 4. Install dependencies into container
 
 ```sh 
-$ docker-compose exec php-fpm bash
-$ composer install
+$ docker-compose exec php-fpm composer install
 ```   
 
 5. Create a database and run migrations into container
